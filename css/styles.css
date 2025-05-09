@@ -1,7 +1,9 @@
+/* Basic Reset */
 * {
   box-sizing: border-box;
 }
 
+/* Body Styling - Centers the main container on the page */
 body {
   display: flex;
   align-items: center;
@@ -13,6 +15,7 @@ body {
   font-size: 16px;
 }
 
+/* Main Heading Style */
 h1 {
   width: 100%;
   padding-top: 1em;
@@ -20,62 +23,230 @@ h1 {
   text-align: center;
   font-family: "Archivo", sans-serif;
 }
+
+/* Main Container - Flexbox for content stacking and centering */
 .container {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 90%;
-  max-width: 800px;
+  justify-content: center; /* Center content horizontally */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  width: 90%; /* Max width relative to viewport */
+  max-width: 800px; /* Absolute max width */
 }
+
+/* Base style for the Song List (ul) - Applies on all screen sizes */
 .mix {
-  padding: 0 3em;
-  margin: 0;
-  list-style: none;
-  border: 3px solid #fff;
+  padding: 0 0.5em; /* Horizontal padding inside the list border */
+  margin: 0 auto; /* Center the ul block horizontally if its content doesn't fill width */
+  list-style: none; /* Remove default list bullets */
+  border: 3px solid #fff; /* White border around the list */
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 }
 
+/* Rule to instantly hide elements (used for buttons) */
 .hide {
-  display: none;
+  display: none; /* Remove element from layout */
 }
 
-.total {
-  text-align: center;
-  width: 100%;
-  text-transform: uppercase;
-  padding-bottom: 1em;
+/* Rule to hide elements for fade-in (used for the list initially) */
+.hidden {
+  opacity: 0; /* Start completely transparent */
+  visibility: hidden; /* Hide from screen readers and interactions */
+  pointer-events: none; /* Prevent clicks when hidden */
 }
+
+/* Base style for individual Song List Items (li) - Applies on all screen sizes */
 .mix .song {
   padding: 0.5em;
-  margin: 0.75em 0;
+  margin: 0.75em 0.5em; /* Keep vertical margin, horizontal margin removed */
   font-size: 1.25em;
+  text-align: left;
+  display: flex; /* Keep flex for internal layout of number/title/like */
+  align-items: center;
+  transition: background-color 0.3s ease; /* Transition for hover background color */
 }
 
+/* Style for the song title span */
+.mix .song-title {
+  flex-grow: 1; /* Allow the song title span to take up available horizontal space */
+  /* margin removed as per previous step */
+  overflow-wrap: break-word; /* Ensure long words/phrases wrap */
+  /* text-align is inherited from .mix .song (which is left) */
+}
+
+/* Style for the Song Number span within the list item */
 .mix .song-number {
-  display: inline-block;
-  padding: 0.45em;
-  margin-right: 0.25em;
-  background-color: #9634ff;
+  display: inline-block; /* Allows padding/margin/background */
+  padding: 0.45em; /* Padding inside the number box */
+  margin-right: 0.25em; /* Space to the right of the number box */
+  color: #fff; /* Text color for the number */
 }
 
+/* Add a hover effect for individual song list items */
+.mix .song:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Change background to a subtle transparent white */
+  cursor: pointer; /* Change cursor to indicate interactivity */
+}
+
+/* Style for the like container (holds icon) */
+.like-container {
+  display: flex; /* Use flexbox to align icon horizontally */
+  align-items: center; /* Vertically center icon */
+  margin-left: 0.5em; /* Add margin to create space to the left of the heart */
+}
+
+/* Style for the like button icon itself */
+.like-button {
+  cursor: pointer; /* Indicate that the icon is clickable */
+  color: #ccc; /* Default color for the outline heart (grey) */
+  transition: color 0.2s ease; /* Smooth color change when liked/unliked */
+  font-size: 1.1em; /* Make the icon slightly larger than the song title text */
+}
+
+/* Style for the liked state of the icon (solid heart) */
+.like-button.fas { /* This rule applies when the 'fas' class is present */
+    color: #e74c3c; /* Change color to red when liked */
+}
+
+
+/* Base Style for the Button Container - Makes buttons stack on smaller screens */
+.button-container {
+  display: flex; /* Make this a flex container */
+  flex-direction: column; /* Stack the buttons vertically by default */
+  align-items: center; /* Center the buttons horizontally within this container */
+  margin-top: 1em; /* Add space above the button container block */
+}
+
+
+/* Base Style for the Show Me! Button (Keeping original color for Show Me) */
 button.show-list {
   margin: 2em 0;
-  width: 50%;
+  width: auto;
   padding: 1em;
-  color: #532a7f;
+  background-color: #9634ff; /* Show Me! button color */
+  color: #fff;
   font-size: 1.25em;
   align-self: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+/* Base Style for the Shuffle! Button (Different color) */
+button.shuffle-list {
+  margin: 2em 0;
+  width: auto;
+  padding: 1em;
+  background-color: #4CAF50; /* Shuffle! button color (Green Example) */
+  color: #fff;
+  font-size: 1.25em;
+  align-self: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Base Style for the Sort A-Z Button (Different color) */
+button.sort-az {
+  margin: 2em 0;
+  width: auto;
+  padding: 1em;
+  background-color: #e75bc2; /* Sort A-Z button color (Orange Example) */
+  color: #fff;
+  font-size: 1.25em;
+  align-self: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+/* Hover effect for all buttons (grouped) */
+button.show-list:hover,
+button.shuffle-list:hover,
+button.sort-az:hover {
+background-color: #ad80d1; /* Darker shade on hover */
+}
+
+
+/* Style for the search input field */
+#search-input {
+  width: 100%; /* Make it take full width within its container */
+  padding: 0.8em; /* Internal spacing */
+  margin: 1em 0; /* Space above and below */
+  font-size: 1em;
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 5px; /* Rounded corners */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+  background-color: #4a246d; /* Darker background to match theme */
+  color: #fff; /* White text color */
+}
+
+/* Style for placeholder text */
+#search-input::placeholder {
+  color: #ccc; /* Lighter grey color for placeholder text */
+}
+
+/* Media Query for larger screens (800px and wider) */
 @media screen and (min-width: 800px) {
-  .mix .song {
-    width: 50%;
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
+
+  /* Total song count paragraph - Ensure it takes full width */
+  .total {
+      width: 100%;
+      flex-basis: 100%; /* Occupy its own row in the main flex container */
+      text-align: center; /* Explicitly center text */
+      padding-bottom: 1em;
+      text-transform: uppercase;
   }
 
-  button.show-list {
-    width: 25%;
-    font-size: 1.5em;
+  /* Song List (ul) on larger screens - Multi-column layout */
+  /* Multi-column layout on large screens */
+  .mix {
+    display: flex; /* Use flexbox */
+    flex-wrap: wrap; /* Allow items to wrap to the next row */
+    justify-content: center; /* Center the items horizontally within the ul */
+    align-items: flex-start; /* Align items to the top of the row for better visual alignment */
+    width: 100%; /* Ensure ul takes full width in the main container */
+    flex-basis: 100%; /* Reinforce stacking as a flex item in main container */
+    margin: 0 auto; /* Center the ul block itself */
+    padding: 0 3em; /* Horizontal padding */
+    /* border, list-style, opacity, visibility, transition inherited from base */
+}
+
+/* Style list items for two columns on large screens */
+.mix .song {
+  width: calc(50% - 1em); /* Set width for two columns, subtracting total horizontal margin (0.5em left + 0.5em right) */
+}
+
+  /* Button Container on larger screens - Arrange side-by-side */
+  .button-container {
+      width: 100%; /* Keep full width */
+      flex-basis: 100%; /* Keep flex basis */
+      display: flex; /* Keep flexbox */
+      flex-direction: row; /* Arrange items in a row on large screens */
+      justify-content: center; /* Center the buttons horizontally */
+      gap: 20px; /* Space between the buttons */
+      margin-top: 1em; /* Keep margin top */
   }
+
+  /* Buttons within the Button Container on larger screens */
+  .button-container button {
+      width: 200px; /* Fixed width for buttons */
+      font-size: 1.5em; /* Larger font size */
+      margin: 0; /* Remove individual button margin if using gap on parent */
+      /* background-color, color, padding, border, cursor, transition, hover inherited */
+  }
+
+  /* Show Me! button specific rule for large screens BEFORE it's hidden */
+  button.show-list {
+      width: 200px; /* Match width of side-by-side buttons */
+      font-size: 1.5em; /* Match font size */
+      margin: 2em auto; /* Center horizontally as a block, keep vertical margin */
+      align-self: center; /* Center within flex container */
+      /* background-color, color, padding, border, cursor, transition, hover inherited */
+   }
+
+
+  /* Keep other media query styles if any */
 }
